@@ -26,3 +26,14 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Генерация id
+ * @param min {number} нижняя граница допустимых значений id
+ * @param max {number} верхняя граница допустимых значений id
+ * @returns {number}
+ */
+function createId(min = 10, max = 100) {
+  return Math.floor(Math.random() * (max - min) + min);
+}
+export {createId};

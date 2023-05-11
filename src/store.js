@@ -1,3 +1,4 @@
+import { createId } from "./utils";
 /**
  * Хранилище состояния приложения
  */
@@ -44,7 +45,7 @@ class Store {
   addItem() {
     this.setState({
       ...this.state,
-      list: [...this.state.list, {code: this.state.list.length + 1, title: 'Новая запись'}]
+      list: [...this.state.list, {code: createId(), title: 'Новая запись'}]
     })
   };
 
