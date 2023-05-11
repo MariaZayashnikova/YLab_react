@@ -36,7 +36,7 @@ body {
 
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   transition: background-color 1s;
 }
 
@@ -45,12 +45,19 @@ body {
   color: #fff;
 }
 
+.Item-info {
+  display: flex;
+}
+
 .Item-code {
   padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
-  width: 100%;
+  padding: 20px 10px;
+}
+
+.Item-count_clicks {
   padding: 20px 10px;
 }
 

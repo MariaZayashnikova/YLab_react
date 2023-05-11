@@ -68,7 +68,10 @@ class Store {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
+        if(!item.clicks) item.clicks = 0;
+
         if (item.code === code) {
+          if(!item.selected) item.clicks++;
           item.selected = !item.selected;
         } else {
           item.selected = false;

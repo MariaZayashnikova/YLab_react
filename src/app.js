@@ -11,6 +11,14 @@ function App({store}) {
 
   const list = store.getState().list;
 
+  function createEnding(num) {
+    if(num === 12 || num === 13 || num === 14) return 'раз';
+    if(/1(?=[2|3|4]$)/.test(num)) return 'раз';
+
+    if(/([2|3|4]$)/.test(num)) return 'раза';
+    else return 'раз';
+  }
+
   return (
     <div className='App'>
       <div className='App-head'>
@@ -25,8 +33,14 @@ function App({store}) {
             <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
-                <div className='Item-code'>{i + 1}</div>
-                <div className='Item-title'>{item.title}</div>
+                <div className='Item-info'>
+                  <div className='Item-code'>{i + 1}</div>
+                  <div className='Item-title'>{item.title}</div>
+                  {item.clicks > 0 ? (
+                    <div className='Item-count_clicks'>| Выделяли {item.clicks} {createEnding(item.clicks)}</div>
+                    )
+                   : null}
+                </div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
