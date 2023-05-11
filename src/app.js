@@ -12,7 +12,6 @@ function App({store}) {
   const list = store.getState().list;
 
   function createEnding(num) {
-    if(num === 12 || num === 13 || num === 14) return 'раз';
     if(/1(?=[2|3|4]$)/.test(num)) return 'раз';
 
     if(/([2|3|4]$)/.test(num)) return 'раза';
