@@ -29,11 +29,17 @@ export function createElement(name, props = {}, ...children) {
 
 /**
  * Генерация id
- * @param min {number} нижняя граница допустимых значений id
- * @param max {number} верхняя граница допустимых значений id
+ * @param startId {number} число, с которого начинается отсчет 
  * @returns {number}
  */
-function createId(min = 10, max = 100) {
-  return Math.floor(Math.random() * (max - min) + min);
+function createId(startId = 7) {
+  if(!sessionStorage.getItem('lastId')) {
+    sessionStorage.setItem('lastId', startId )
+  } 
+
+  let num = +sessionStorage.getItem('lastId');
+  num++;
+  sessionStorage.setItem('lastId', num);
+  return num;
 }
 export {createId};
