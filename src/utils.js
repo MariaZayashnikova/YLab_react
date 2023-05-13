@@ -43,3 +43,11 @@ function createId(startId = 7) {
   return num;
 }
 export {createId};
+
+function createEnding(num, value, changedValue) {
+  if (/1(?=[2|3|4]$)/.test(num)) return value;
+
+  if (/([2|3|4]$)/.test(num)) return changedValue;
+  else return value;
+}
+export {createEnding}

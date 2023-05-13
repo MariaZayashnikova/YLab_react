@@ -1,5 +1,6 @@
 import React from 'react';
 import {createElement} from './utils.js';
+import { createEnding } from './utils.js';
 import './styles.css';
 
 /**
@@ -10,13 +11,6 @@ import './styles.css';
 function App({store}) {
 
   const list = store.getState().list;
-
-  function createEnding(num) {
-    if(/1(?=[2|3|4]$)/.test(num)) return 'раз';
-
-    if(/([2|3|4]$)/.test(num)) return 'раза';
-    else return 'раз';
-  }
 
   return (
     <div className='App'>
@@ -30,13 +24,12 @@ function App({store}) {
         <div className='List'>{
           list.map(item =>
             <div key={item.code} className='List-item'>
-              <div className={'Item' + (item.selected ? ' Item_selected' : '')}
-                   onClick={() => store.selectItem(item.code)}>
-                <div className='Item-info'>
+              <div className={'Item' + (item.selected ? ' Item_selected' : '')}>
+                <div className='Item-info' onClick={() => store.selectItem(item.code)}>
                   <div className='Item-code'>{item.code}</div>
                   <div className='Item-title'>{item.title}</div>
                   {item.clicks > 0 ? (
-                    <div className='Item-count_clicks'>| Выделяли {item.clicks} {createEnding(item.clicks)}</div>
+                    <div className='Item-count_clicks'>| Выделяли {item.clicks} {createEnding(item.clicks, 'раз', 'раза')}</div>
                     )
                    : null}
                 </div>

@@ -47,6 +47,7 @@ body {
 
 .Item-info {
   display: flex;
+  width: 100%;
 }
 
 .Item-code {
