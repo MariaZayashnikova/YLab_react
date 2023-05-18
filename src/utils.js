@@ -26,3 +26,28 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+/**
+ * Генерация id
+ * @param startId {number} число, с которого начинается отсчет 
+ * @returns {number}
+ */
+function createId(startId = 7) {
+  if(!sessionStorage.getItem('lastId')) {
+    sessionStorage.setItem('lastId', startId )
+  } 
+
+  let num = +sessionStorage.getItem('lastId');
+  num++;
+  sessionStorage.setItem('lastId', num);
+  return num;
+}
+export {createId};
+
+function createEnding(num, value, changedValue) {
+  if (/1(?=[2|3|4]$)/.test(num)) return value;
+
+  if (/([2|3|4]$)/.test(num)) return changedValue;
+  else return value;
+}
+export {createEnding}
