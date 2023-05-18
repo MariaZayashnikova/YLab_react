@@ -83,6 +83,14 @@ class Store {
       })
     })
   }
+
+  addToCart() {
+    console.log('add to cart')
+    // this.setState({
+    //   ...this.state,
+    //   list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
+    // })
+  }
 }
 
 export default Store;
