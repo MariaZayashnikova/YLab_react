@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Item from "../item";
 import './style.css';
 
-function List({list, onAddToCart}){
+function List(props){
   return (
     <div className='List'>{
-      list.map(item =>
+      props.list.map(item =>
         <div key={item.code} className='List-item'>
-          <Item item={item} onAddToCart={onAddToCart}/>
+          <Item item={item} callback={props.callback} action={props.action}/>
         </div>
       )}
     </div>

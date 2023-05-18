@@ -9,17 +9,13 @@
   color: #fff;
 }
 
-.Item-code {
+.Item-code, .Item-price, .Item-count {
   padding: 20px 10px 20px 20px;
 }
 
 .Item-title {
   width: 100%;
   padding: 20px 10px;
-}
-
-.Item-price {
-  padding: 20px 10px 20px 20px;
 }
 
 .Item-actions {

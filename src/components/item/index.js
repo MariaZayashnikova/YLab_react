@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import './style.css';
 
 function Item(props){
-
   return (
     <div className='Item'>
       <div className='Item-code'>{props.item.code}</div>
@@ -11,11 +10,16 @@ function Item(props){
         {props.item.title}
       </div>
       <div className='Item-price'>
-        <span>{props.item.price}₽</span>
+        {props.item.price}₽
       </div>
+      {props.item.count ? (
+        <div className='Item-count'>
+          {props.item.count} шт
+        </div>
+      ) : null}
       <div className='Item-actions'>
-        <button onClick={() => props.onAddToCart(props.item.code)}>
-          Добавить
+        <button onClick={() => props.callback(props.item.code)}>
+          {props.action}
         </button>
       </div>
     </div>
@@ -29,11 +33,11 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
-  onAddToCart: PropTypes.func
+  callback: PropTypes.func
 };
 
 Item.defaultProps = {
-  onAddToCart: () => {}
+  callback: () => {}
 }
 
 export default React.memo(Item);

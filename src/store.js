@@ -103,6 +103,14 @@ class Store {
       cart: newCart
     })
   }
+
+  deleteItemFromCart(code) {
+    this.setState({
+      ...this.state,
+      // Новый список, в котором не будет удаляемой записи
+      cart: this.state.cart.filter(item => item.code !== code)
+    })
+  };
 }
 
 export default Store;
