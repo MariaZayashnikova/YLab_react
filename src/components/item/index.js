@@ -10,8 +10,11 @@ function Item(props){
       <div className='Item-title'>
         {props.item.title}
       </div>
+      <div className='Item-price'>
+        <span>{props.item.price}₽</span>
+      </div>
       <div className='Item-actions'>
-        <button onClick={() => props.onAddToCart()}>
+        <button onClick={() => props.onAddToCart(props.item.code)}>
           Добавить
         </button>
       </div>

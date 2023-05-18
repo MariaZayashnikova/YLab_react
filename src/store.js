@@ -84,12 +84,24 @@ class Store {
     })
   }
 
-  addToCart() {
-    console.log('add to cart')
-    // this.setState({
-    //   ...this.state,
-    //   list: [...this.state.list, {code: generateCode(), title: 'Новая запись'}]
-    // })
+  addToCart(code) {
+    let newCart = this.state.cart.filter(() => true);
+
+    if(newCart.find(item => item.code === code)) {
+      newCart.forEach(item => {
+        if(item.code === code) item.count++;
+      })
+    } else {
+      let newItem = this.state.list.find(item => item.code === code);
+      // newItem.code = generateCode();
+      newItem.count = 1;
+      newCart.push(newItem);
+    }
+
+    this.setState({
+      ...this.state,
+      cart: newCart
+    })
   }
 }
 

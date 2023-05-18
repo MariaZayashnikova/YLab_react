@@ -3,3 +3,11 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-Cart > span {
+  margin: 0 10px;
+}
+
+.Controls-Cart_font-weight-bold {
+  font-weight: bold;
+}

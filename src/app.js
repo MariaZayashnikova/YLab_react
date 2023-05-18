@@ -12,21 +12,23 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const cart = store.getState().cart;
 
   const callbacks = {
     onShowCart: () => {
       console.log('show cart')
     },
 
-    onAddToCart: useCallback(() => {
-      store.addToCart();
+    onAddToCart: useCallback((code) => {
+      store.addToCart(code);
     }, [store])
   }
 
   return (
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onShowCart={callbacks.onShowCart}/>
+      <Head title='Магазин'/>
+      <Controls cart={cart}
+                onShowCart={callbacks.onShowCart}/>
       <List list={list}
             onAddToCart={callbacks.onAddToCart}/>
     </PageLayout>
