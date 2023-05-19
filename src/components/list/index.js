@@ -19,11 +19,12 @@ List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
-  onAddToCart: PropTypes.func
+  action: PropTypes.string,
+  callback: PropTypes.func
 };
 
 List.defaultProps = {
-  onAddToCart: () => {}
+  callback: () => {}
 }
 
 export default React.memo(List);

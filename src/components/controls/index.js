@@ -51,11 +51,11 @@ Controls.propTypes = {
     count: PropTypes.number,
     price: PropTypes.number
   })),
-  onShowCart: PropTypes.func
+  callback: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onShowCart: () => {}
+  callback: () => {}
 }
 
 export default React.memo(Controls);

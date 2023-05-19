@@ -37,6 +37,7 @@ Item.propTypes = {
     selected: PropTypes.bool,
     count: PropTypes.number
   }).isRequired,
+  action: PropTypes.string,
   callback: PropTypes.func
 };
 

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import './style.css';
 
 function Modal({ children, callback, sum}) {
@@ -16,6 +17,16 @@ function Modal({ children, callback, sum}) {
             </div>
         </div>
     )
+}
+
+Modal.propTypes = {
+  children: PropTypes.node,
+  sum: PropTypes.number,
+  callback: PropTypes.func
+};
+  
+Modal.defaultProps = {
+  callback: () => {}
 }
 
 export default Modal;
