@@ -1,7 +1,12 @@
 .Item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   transition: background-color 1s;
+}
+
+.Item > div {
+  display: flex;
+  align-items: center;
 }
 
 .Item_selected {
@@ -9,8 +14,15 @@
   color: #fff;
 }
 
-.Item-code, .Item-price, .Item-count {
+.Item-code, .Item-count {
   padding: 20px 10px 20px 20px;
+}
+
+.Item-price {
+  font-size: 18px;
+  line-height: 21px;  
+  color: #404040;
+  padding-right: 10px;
 }
 
 .Item-title {

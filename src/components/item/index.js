@@ -5,22 +5,26 @@ import './style.css';
 function Item(props){
   return (
     <div className='Item'>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
-        {props.item.title}
-      </div>
-      <div className='Item-price'>
-        {props.item.price}₽
-      </div>
-      {props.item.count ? (
-        <div className='Item-count'>
-          {props.item.count} шт
+      <div>
+        <div className='Item-code'>{props.item.code}</div>
+        <div className='Item-title'>
+          {props.item.title}
         </div>
-      ) : null}
-      <div className='Item-actions'>
-        <button onClick={() => props.callback(props.item.code)}>
-          {props.action}
-        </button>
+      </div>
+      <div>
+        <div className='Item-price'>
+          {props.item.price} ₽
+        </div>
+        {props.item.count ? (
+          <div className='Item-count'>
+            {props.item.count} шт
+          </div>
+        ) : null}
+        <div className='Item-actions'>
+          <button onClick={() => props.callback(props.item.code)}>
+            {props.action}
+          </button>
+        </div>
       </div>
     </div>
   );

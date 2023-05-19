@@ -7,16 +7,18 @@
     background: rgba(0, 0, 0, 0.7);
 }
 
-
 .Modal-container {
   position: absolute;
   width: 960px;
-  height: 407px;
-  left: 240px;
-  top: calc(50% - 407px/2 + 0.5px);
+  top: 10%;
+  left: 25%;
   background-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
+}
+
+.Modal-container .Head {
+  border-radius: 10px 10px 0 0;
 }
 
 .delimiter {
@@ -27,4 +29,20 @@
   position: absolute;
   right: 32px;
   top: 32px;
+}
+
+.Modal-info {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.Modal-info > div {
+  padding: 20px 10px 20px 20px;
+}
+
+.Modal-info > span {
+  width: 95px;
 }

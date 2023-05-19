@@ -28,7 +28,9 @@ function Controls({cart, callback}){
           <span className='Controls-Cart_font-weight-bold'>
             {valueCart}
           </span>
-          <button onClick={() => onSetShowCart()}>Перейти</button>
+          <div className="Controls-Cart_button">
+            <button onClick={() => onSetShowCart()}>Перейти</button>
+          </div>
         </div>
       </div>
       {isShowCart ? (

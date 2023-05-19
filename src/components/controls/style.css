@@ -1,14 +1,24 @@
 .Controls {
   display: flex;
   justify-content: flex-end;
-  padding: 20px;
   border-bottom: 1px dashed #ccc;
 }
 
+.Controls-Cart {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .Controls-Cart > span {
-  margin: 0 10px;
+  padding: 20px 10px;
 }
 
 .Controls-Cart_font-weight-bold {
-  font-weight: bold;
+  font-weight: 700;
+}
+
+.Controls-Cart_button {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 20px 20px 10px;
 }
