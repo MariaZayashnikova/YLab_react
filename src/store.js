@@ -93,7 +93,6 @@ class Store {
       })
     } else {
       let newItem = this.state.list.find(item => item.code === code);
-      // newItem.code = generateCode();
       newItem.count = 1;
       newCart.push(newItem);
     }
@@ -107,7 +106,6 @@ class Store {
   deleteItemFromCart(code) {
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
       cart: this.state.cart.filter(item => item.code !== code)
     })
   };
