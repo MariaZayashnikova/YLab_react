@@ -13,7 +13,7 @@ function Item(props){
       </div>
       <div>
         <div className='Item-price'>
-          {props.item.price} ₽
+          {props.item.price.toLocaleString()} ₽
         </div>
         {props.item.count ? (
           <div className='Item-count'>

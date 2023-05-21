@@ -1,8 +1,9 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/modal';
 
 /**
  * Приложение
@@ -13,6 +14,10 @@ function App({store}) {
 
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const totalCart = store.getState().totalCart;
+
+  const [isShowCart, setShowCart] = useState(false);
+  const onSetShowCart = () => setShowCart(!isShowCart);
 
   const callbacks = {
       onAddToCart: useCallback((code) => {
@@ -27,11 +32,19 @@ function App({store}) {
   return (
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls cart={cart}
-                callback={callbacks.onRemoveFromCart}/>
+      <Controls totalCart={totalCart}
+                cart={cart}
+                callback={onSetShowCart}/>
       <List list={list}
             action="Добавить"
-            callback={callbacks.onAddToCart}/>     
+            callback={callbacks.onAddToCart}/>
+      {isShowCart ? (
+        <Modal callback={onSetShowCart} sum={totalCart.sum}>
+          <List list={cart}
+                action="Удалить"
+                callback={callbacks.onRemoveFromCart}/>
+      </Modal>
+      ) : null}      
     </PageLayout>
   );
 }
