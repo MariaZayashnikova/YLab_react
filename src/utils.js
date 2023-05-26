@@ -33,3 +33,27 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Создание активных страниц 
+ * @param currentPage {Number}
+ * @param maxPage {Number}
+ * @returns {Array}
+ */
+export function createActiveRoutes(currentPage, maxPage) {
+  if (currentPage === 3) return [2, 3, 4, '...'];
+
+  if (currentPage === maxPage || currentPage === maxPage - 1) {
+    return ['...', maxPage - 2, maxPage - 1];
+  }
+  
+  if (currentPage === maxPage - 2) {
+    return ['...', maxPage - 3, maxPage - 2, maxPage - 1];
+  }
+  
+  if (currentPage > 3 && currentPage !== maxPage && currentPage !== maxPage - 1) {
+    return ['...', currentPage - 1, currentPage, currentPage + 1, '...'];
+  }
+
+  return [2, 3, '...'];
+}

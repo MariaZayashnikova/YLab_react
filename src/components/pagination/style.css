@@ -1,0 +1,27 @@
+.Pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.Pagination-cell {
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 5px;
+  text-decoration: none;
+}
+
+.Pagination-delimiter {
+  font-family: Arial;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 5px;
+}
+
+.Pagination-cell:hover {
+  background-color: #E1E1E1 !important;
+  color: black !important;
+}
