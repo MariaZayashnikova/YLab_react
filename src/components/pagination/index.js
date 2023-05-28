@@ -8,13 +8,12 @@ import './style.css';
 function Pagination({amount}) {
   const cn = bem('Pagination');
 
-  let max = Math.ceil(amount / 10);
   let href = useHref();
 
   const setActivePage = ({isActive}) => ({backgroundColor: isActive ? '#0087E9' : 'inherit', color: isActive ? 'white' : 'inherit'});
 
   function Filling() {
-    let result = createActiveRoutes(+href.replace(/\D/g, ''), max)
+    let result = createActiveRoutes(+href.replace(/\D/g, ''), amount)
 
     return (
       result.map((item, i) => {
@@ -24,7 +23,7 @@ function Pagination({amount}) {
               key={i}
               className={cn('cell')}
               style={setActivePage}
-              to={`${item}`}>{item}</NavLink>
+              to={`page${item}`}>{item}</NavLink>
           )
         } else {
           return (
@@ -42,12 +41,12 @@ function Pagination({amount}) {
       <NavLink
         className={cn('cell')}
         style={setActivePage}
-        to='1'> 1</NavLink>
+        to='page1'> 1</NavLink>
       <Filling/>
       <NavLink
         className={cn('cell')}
         style={setActivePage}
-        to={`${max}`}>{max}</NavLink>
+        to={`page${amount}`}>{amount}</NavLink>
     </div>
   )
 }

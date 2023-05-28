@@ -4,8 +4,9 @@ import Main from "./main";
 import Basket from "./basket";
 import useStore from "../store/use-store";
 import useSelector from "../store/use-selector";
-import ItemDetails from '../components/item-details';
+import ItemDetails from './item-details';
 import {createActiveRoutes} from '../utils';
+import ErrorRoute from '../components/Error-route';
 
 /**
  * Приложение
@@ -18,31 +19,32 @@ function App() {
   let href = useHref();
 
   useEffect(() => {
-    if(href === '/') navigate('1');
+    if(href === '/') navigate('page1');
   }, [href]);
 
   const select = useSelector(state => ({
-    amountElements: state.catalog.amountElements
+    pagesAmount: state.catalog.pagesAmount
   }));
 
-  let maxPage = Math.ceil(select.amountElements / 10);
-  let resultRoutes = createActiveRoutes(+href.replace(/\D/g, ''), maxPage)
+  let resultRoutes = createActiveRoutes(+href.replace(/\D/g, ''), select.pagesAmount)
 
   return (
     <>
       <Routes>
         <Route path='/'  element={<Main/>}>
-          <Route path='1' element={<Main/>}/>
+          <Route path='page1' element={<Main/>}/>
           {resultRoutes.map((item, i) => {
             if(Number.isFinite(item)) {
               return (
-                <Route key={i} path={`${item}`} element={<Main/>}/>
+                <Route key={i} path={`page${item}`} element={<Main/>}/>
               )
             }
           })}
-          <Route path={`${maxPage}`} element={<Main/>}/>
+          <Route path={`page${select.pagesAmount}`} element={<Main/>}/>
         </Route>
-        <Route path=':itemId' element={<ItemDetails/>}/>
+        <Route path='/product/:itemId' element={<ItemDetails/>}/>
+        <Route path='/error' element={<ErrorRoute/>}/>
+        <Route path='*' element={<ErrorRoute/>}/>
       </Routes>
       {activeModal === 'basket' && <Basket/>}
     </>

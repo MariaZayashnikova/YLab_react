@@ -24,7 +24,7 @@ function Main() {
     list: state.catalog.list,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    amountElements: state.catalog.amountElements
+    pagesAmount: state.catalog.pagesAmount
   }));
 
   const callbacks = {
@@ -49,7 +49,7 @@ function Main() {
                     sum={select.sum}/>
       </Controls>
       <List list={select.list} renderItem={renders.item}/>   
-      <Pagination amount={select.amountElements}/>
+      <Pagination amount={select.pagesAmount}/>
     </PageLayout>
   );
 }

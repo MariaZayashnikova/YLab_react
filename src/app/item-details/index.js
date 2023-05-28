@@ -1,19 +1,19 @@
 import {memo, useCallback, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
-import PageLayout from '../page-layout';
-import Head from '../head';
-import BasketTool from '../basket-tool';
-import ItemDescription from './item-description';
-import Controls from '../controls';
-import Navigation from '../navigation';
+import {useParams, useLocation} from 'react-router-dom';
+import PageLayout from '../../components/page-layout';
+import Head from '../../components/head';
+import BasketTool from '../../components/basket-tool';
+import ItemDescription from '../../components/item-description';
+import Controls from '../../components/controls';
+import Navigation from '../../components/navigation';
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
 function ItemDetails() {
   let params = useParams();
+  let location = useLocation();
 
   const store = useStore();
-  
   const select = useSelector(state => ({
     item: state.item.item,
     amount: state.basket.amount,
@@ -31,8 +31,11 @@ function ItemDetails() {
 
   useEffect(() => {
     store.actions.item.load(params.itemId);
-    callbacks.closeModal();
   }, [params.itemId]);
+
+  useEffect(() => {
+    callbacks.closeModal();
+  }, [location]);
 
   return (
     <PageLayout>
