@@ -17,7 +17,8 @@ function Main() {
   let href = useHref();
 
   useEffect(() => {
-    store.actions.catalog.load(+href.replace(/\D/g, ''));
+    store.actions.catalog.setCurrantPage(+href.replace(/\D/g, ''));
+    store.actions.catalog.load();
   }, [href]);
 
   const select = useSelector(state => ({
@@ -36,7 +37,7 @@ function Main() {
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} linkPath={'/product/'}/>
     }, [callbacks.addToBasket]),
   };
 
