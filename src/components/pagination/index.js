@@ -1,19 +1,17 @@
 import {memo} from 'react';
 import {cn as bem} from '@bem-react/classname';
-import {NavLink, useHref} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import PropTypes from "prop-types";
 import {createActiveRoutes} from '../../utils';
 import './style.css';
 
-function Pagination({amount}) {
+function Pagination({amount, currentPage}) {
   const cn = bem('Pagination');
-
-  let href = useHref();
 
   const setActivePage = ({isActive}) => ({backgroundColor: isActive ? '#0087E9' : 'inherit', color: isActive ? 'white' : 'inherit'});
 
   function Filling() {
-    let result = createActiveRoutes(+href.replace(/\D/g, ''), amount)
+    let result = createActiveRoutes(currentPage, amount)
 
     return (
       result.map((item, i) => {
@@ -53,6 +51,7 @@ function Pagination({amount}) {
 
 Pagination.propTypes = {
   amount: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
 }
 
 export default memo(Pagination);
