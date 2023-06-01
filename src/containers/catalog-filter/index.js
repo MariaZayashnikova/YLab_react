@@ -34,42 +34,32 @@ let filter = [
 
 function createFilter() {
   //@todo отрефакторить
-  let list = select.categoriesList.filter(item => item.parent === null);
+  let categories = select.categoriesList.filter(() => true);
+  let list = categories.filter(item => item.parent === null);
   list.forEach(elem => {
-    elem.children = select.categoriesList.filter(item => item.parent?._id === elem._id);
-  })
-  list.forEach(elem => {
-    elem.children.forEach(child => {
-      child.children = select.categoriesList.filter(item => item.parent?._id === child._id);
-    })
-  })
-
-  list.forEach(item => {
     let obj = {};
-    obj.value = item._id;
-    obj.title = item.title;
+    obj.value = elem._id;
+    obj.title = elem.title;
     filter.push(obj);
-    obj = {}
-    if(item.children.length > 0) {
-      item.children.forEach(child => {
-        obj.value = child._id;
-        obj.title ='- ' + child.title;
+    obj = {};
+    elem.children = categories.filter(item => item.parent?._id === elem._id);
+    elem.children.forEach(child => {
+      obj.value = child._id;
+      obj.title ='- ' + child.title;
+      filter.push(obj);
+      obj = {};
+      child.children = categories.filter(item => item.parent?._id === child._id);
+      child.children.forEach(element => {
+        obj.value = element._id;
+        obj.title ='- - ' + element.title;
         filter.push(obj);
-        obj = {}
-        if(child.children.length > 0) {
-          child.children.forEach(elem => {
-            obj.value = elem._id;
-            obj.title ='- - ' + elem.title;
-            filter.push(obj);
-            obj = {}
-          })
-        }
+        obj = {};
       })
-    }
+    })
   })
 }
   createFilter();
-
+  console.log(select.categoriesList)
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},

@@ -1,0 +1,8 @@
+.LoginDetails > * {
+    margin: 0 10px;
+}
+
+.LoginDetails-button {
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,11 @@
+.ProfileDetails {
+    padding: 20px;
+}
+
+.ProfileDetails-item {
+    margin: 20px 0;
+}
+
+.ProfileDetails-item-bold {
+    font-weight: 700;
+}

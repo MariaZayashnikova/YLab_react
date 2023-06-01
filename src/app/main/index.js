@@ -1,4 +1,4 @@
-import {memo} from 'react';
+import {memo, useCallback} from 'react';
 import useStore from "../../hooks/use-store";
 import useTranslate from "../../hooks/use-translate";
 import useInit from "../../hooks/use-init";
@@ -8,10 +8,19 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
+import Login from '../../containers/login-nav';
 
 function Main() {
 
   const store = useStore();
+
+  const callbacks = {
+    onCheckUser: useCallback(() => store.actions.user.checkUser(), [store]),
+  }
+
+  useInit(() => {
+    callbacks.onCheckUser();
+  }, [])
 
   useInit(() => {
     store.actions.catalog.initParams();
@@ -22,6 +31,7 @@ function Main() {
 
   return (
     <PageLayout>
+      <Login/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>
