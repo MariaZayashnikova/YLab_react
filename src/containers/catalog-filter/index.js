@@ -28,38 +28,41 @@ function CatalogFilter() {
     onReset: useCallback(() => store.actions.catalog.resetParams(), [store]),
   };
 
-let filter = [
-  {value: 'all', title: "Все"}
-];
+  let filter = [
+    {value: 'all', title: "Все"}
+  ];
 
-function createFilter() {
-  //@todo отрефакторить
-  let categories = select.categoriesList.filter(() => true);
-  let list = categories.filter(item => item.parent === null);
-  list.forEach(elem => {
-    let obj = {};
-    obj.value = elem._id;
-    obj.title = elem.title;
-    filter.push(obj);
-    obj = {};
-    elem.children = categories.filter(item => item.parent?._id === elem._id);
-    elem.children.forEach(child => {
-      obj.value = child._id;
-      obj.title ='- ' + child.title;
+  function createFilter() {
+    //@todo попробовать сократить
+    function createObj(data, addition) {
+      let obj = {};
+      obj.value = data._id;
+      obj.title = addition + data.title;
       filter.push(obj);
-      obj = {};
-      child.children = categories.filter(item => item.parent?._id === child._id);
-      child.children.forEach(element => {
-        obj.value = element._id;
-        obj.title ='- - ' + element.title;
-        filter.push(obj);
-        obj = {};
+    }
+    let categories = [];
+    // копируем массив объектов, чтобы не менялся исходный
+    select.categoriesList.forEach(item => {
+      let newObj = {};
+      Object.assign(newObj, item);
+      categories.push(newObj);
+    });
+
+    let list = categories.filter(item => item.parent === null);
+    list.forEach(elem => {
+      createObj(elem, '');
+      elem.children = categories.filter(item => item.parent?._id === elem._id);
+      elem.children.forEach(child => {
+        createObj(child, '- ');
+        child.children = categories.filter(item => item.parent?._id === child._id);
+        child.children.forEach(element => {
+          createObj(element, '- - ');
+        })
       })
     })
-  })
-}
+  }
   createFilter();
-  console.log(select.categoriesList)
+
   const options = {
     sort: useMemo(() => ([
       {value: 'order', title: 'По порядку'},
