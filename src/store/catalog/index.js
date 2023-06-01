@@ -64,9 +64,6 @@ class CatalogState extends StoreModule {
     const params = {...this.getState().params, ...newParams};
 
     // Установка новых параметров и признака загрузки
-    if(newParams?.filter) {
-      params.page = 1;
-    }
     this.setState({
       ...this.getState(),
       params,
