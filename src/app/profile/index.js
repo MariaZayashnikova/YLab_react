@@ -6,7 +6,6 @@ import useInit from "../../hooks/use-init";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
-import Spinner from "../../components/spinner";
 import LoginNav from '../../containers/login-nav';
 import ProfileDetails from '../../components/profile-details'
 

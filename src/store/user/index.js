@@ -8,34 +8,49 @@ class UserState extends StoreModule {
   initState() {
     return {
       user: null,
-      waiting: false // признак ожидания загрузки
+      waiting: false, // признак ожидания загрузки
+      error: false
     }
   }
 
   async signIn(data) {
-    const response = await fetch('/api/v1/users/sign', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: JSON.stringify(data)
+    this.setState({
+      ...this.getState(),
+      waiting: true
     });
 
-    const json = await response.json();
-    let user ={
-        token: json.result.token,
-        name: json.result.user.profile.name,
-        phone: json.result.user.profile.phone,
-        email: json.result.user.email
-    }
-
-    localStorage.setItem('user', JSON.stringify(user));
-
-    this.setState({
+    try {
+      const response = await fetch('/api/v1/users/sign', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      const json = await response.json();
+      let user ={
+          token: json.result.token,
+          name: json.result.user.profile.name,
+          phone: json.result.user.profile.phone,
+          email: json.result.user.email
+      }
+  
+      localStorage.setItem('user', JSON.stringify(user));
+  
+      this.setState({
+          ...this.getState(),
+          user: user,
+          waiting: false,
+          error: false
+        }, 'Авторизация пройдена');
+    } catch(e) {
+      this.setState({
         ...this.getState(),
-        user: user,
-        waiting: false
-      }, 'Авторизация пройдена');
+        waiting: false, 
+        error: true
+      }, 'Авторизация не пройдена');
+    }
   }
 
   checkUser() {

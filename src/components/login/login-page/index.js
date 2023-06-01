@@ -29,6 +29,11 @@ function LoginPage(props) {
           <div>Пароль</div>
           <input type='password' id='password' name='password'/>
         </div>
+        {props.isError ? (
+          <div className={cn('error')}>
+          Проверьте правильность введенных данных
+        </div>
+        ) : null}
         <div className={cn('item')}>
           <button type='submit'>Войти</button>
         </div>

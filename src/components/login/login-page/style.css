@@ -3,5 +3,9 @@
 }
 
 .LoginPage-item {
-    margin-bottom: 20px;
+    margin: 20px 0;
+}
+
+.LoginPage-error {
+    color: red;
 }

@@ -15,7 +15,9 @@ function Login() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    user: state.user.user
+    user: state.user.user,
+    waiting: state.user.waiting,
+    error: state.user.error,
   }));
 
   const callbacks = {
@@ -38,7 +40,9 @@ function Login() {
       <LoginNav/>
       <Head title={t('title')}/>
       <Navigation/>
-      <LoginPage onSignIn={callbacks.onSignIn}/>
+      <Spinner active={select.waiting}>
+        <LoginPage onSignIn={callbacks.onSignIn} isError={select.error}/>
+      </Spinner>
     </PageLayout>
   );
 }

@@ -8,7 +8,8 @@ class ArticleState extends StoreModule {
   initState() {
     return {
       data: {},
-      waiting: false // признак ожидания загрузки
+      waiting: false, // признак ожидания загрузки
+      error: false
     }
   }
 
@@ -39,7 +40,8 @@ class ArticleState extends StoreModule {
       // @todo В стейт можно положить информацию об ошибке
       this.setState({
         data: {},
-        waiting: false
+        waiting: false, 
+        error: true
       });
     }
   }
