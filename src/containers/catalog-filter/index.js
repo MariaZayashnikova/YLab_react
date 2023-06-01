@@ -34,11 +34,8 @@ function CatalogFilter() {
 
   function createFilter() {
     //@todo попробовать сократить
-    function createObj(data, addition) {
-      let obj = {};
-      obj.value = data._id;
-      obj.title = addition + data.title;
-      filter.push(obj);
+    function addCategoryToFilter(data, prefix) {
+      filter.push({value: data._id, title: prefix + data.title});
     }
     let categories = [];
     // копируем массив объектов, чтобы не менялся исходный
@@ -50,13 +47,13 @@ function CatalogFilter() {
 
     let list = categories.filter(item => item.parent === null);
     list.forEach(elem => {
-      createObj(elem, '');
+      addCategoryToFilter(elem, '');
       elem.children = categories.filter(item => item.parent?._id === elem._id);
       elem.children.forEach(child => {
-        createObj(child, '- ');
+        addCategoryToFilter(child, '- ');
         child.children = categories.filter(item => item.parent?._id === child._id);
         child.children.forEach(element => {
-          createObj(element, '- - ');
+          addCategoryToFilter(element, '- - ');
         })
       })
     })
