@@ -1,5 +1,5 @@
-import {memo, useCallback} from 'react';
-import {useNavigate} from "react-router-dom";
+import {memo, useCallback, useEffect} from 'react';
+import {useNavigate, useLocation} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -13,27 +13,27 @@ import LoginNav from '../../containers/login-nav';
 
 function Login() {
   const store = useStore();
+  let navigate = useNavigate();
+  const {t} = useTranslate();
+  const location = useLocation();
 
   const select = useSelector(state => ({
-    user: state.user.user,
-    waiting: state.user.waiting,
-    error: state.user.error,
+    user: state.profile.user,
+    waiting: state.profile.waiting,
+    error: state.profile.error,
   }));
 
   const callbacks = {
-    onSignIn: useCallback(data => store.actions.user.signIn(data), [store]),
-    onCheckUser: useCallback(() => store.actions.user.checkUserLocal(), [store]),
+    onSignIn: useCallback(data => store.actions.profile.signIn(data), [store])
   }
 
-  useInit(() => {
-    callbacks.onCheckUser();
-  }, []);
+  useEffect(() => {
+    if(select.user) navigate('/profile');
+  }, [select.user]);
 
-  let navigate = useNavigate();
-  const {t} = useTranslate();
-  useInit(() => {
-    if(select.user) navigate('/profile')
-  }, [select.user])
+  useEffect(() => {
+    if(select.error) store.actions.profile.clearError();
+  }, [location.pathname]);
 
   return (
     <PageLayout>
@@ -41,7 +41,7 @@ function Login() {
       <Head title={t('title')}/>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <LoginPage onSignIn={callbacks.onSignIn} isError={select.error}/>
+        <LoginPage onSignIn={callbacks.onSignIn} errorMessage={select.error ? select.error : null}/>
       </Spinner>
     </PageLayout>
   );

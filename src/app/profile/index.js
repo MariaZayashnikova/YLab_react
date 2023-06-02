@@ -1,4 +1,4 @@
-import {memo, useCallback} from 'react';
+import {memo, useCallback, useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
@@ -11,28 +11,17 @@ import LoginNav from '../../containers/login-nav';
 import ProfileDetails from '../../components/profile-details'
 
 function Profile() {
-  const store = useStore();
-
-  const callbacks = {
-    onCheckUser: useCallback(() => store.actions.user.checkUserLocal(), [store]),
-    onCheckAuthorizationToken: useCallback(() => store.actions.user.checkAuthorizationToken(), [store]),
-  }
-
+  
   const select = useSelector(state => ({
-    user: state.user.user
+    user: state.profile.user
   }));
 
   const navigate = useNavigate();
   const {t} = useTranslate();
   
-  useInit(() => {
+  useEffect(() => {
     if(!select.user) navigate('/login');
   }, [select.user])
-
-  useInit(() => {
-    callbacks.onCheckUser();
-    callbacks.onCheckAuthorizationToken();
-  }, [])
 
   return (
     <PageLayout>

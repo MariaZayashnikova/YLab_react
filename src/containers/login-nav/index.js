@@ -8,11 +8,11 @@ function LoginNav() {
   const store = useStore();
 
   const select = useSelector(state => ({
-    user: state.user.user
+    user: state.profile.user
   }));
 
   const callbacks = {
-    onSignOut: useCallback(() => store.actions.user.signOut(), [store]),
+    onSignOut: useCallback(() => store.actions.profile.signOut(), [store]),
   }
 
   return (

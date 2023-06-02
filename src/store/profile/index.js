@@ -19,24 +19,24 @@ class UserState extends StoreModule {
       waiting: true
     });
 
-    try {
-      const response = await fetch('/api/v1/users/sign', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
+    const response = await fetch('/api/v1/users/sign', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
   
-      const json = await response.json();
+    const json = await response.json();
+    if(json.result) {
       let user ={
-          token: json.result.token,
-          name: json.result.user.profile.name,
-          phone: json.result.user.profile.phone,
-          email: json.result.user.email
+        token: json.result.token,
+        name: json.result.user.profile.name,
+        phone: json.result.user.profile.phone,
+        email: json.result.user.email
       }
   
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', JSON.stringify(json.result.token));
   
       this.setState({
           ...this.getState(),
@@ -44,27 +44,19 @@ class UserState extends StoreModule {
           waiting: false,
           error: false
         }, 'Авторизация пройдена');
-    } catch(e) {
+    } else {
       this.setState({
         ...this.getState(),
         waiting: false, 
-        error: true
+        error: json.error.data.issues[0].message
       }, 'Авторизация не пройдена');
     }
   }
 
-  checkUserLocal() {
-    if(localStorage.getItem('user')) {
-      let user = JSON.parse(localStorage.getItem('user'));
-      this.setState({
-        ...this.getState(),
-        user: user
-      }, 'Проверка авторизации выполнена успешно');
-    }
-  }
-
   async checkAuthorizationToken() {
-    const token = this.getState().user.token;
+    if(!localStorage.getItem('token')) return;
+
+    const token = JSON.parse(localStorage.getItem('token'));
 
     const response = await fetch('/api/v1/users/self', {
       method: 'GET',
@@ -76,13 +68,21 @@ class UserState extends StoreModule {
 
     const json = await response.json();
 
-    if(!json.result) {
-      localStorage.clear();
-
+    if(!json.result) localStorage.clear();
+    else {
+      let user ={
+        token: token,
+        name: json.result.profile.name,
+        phone: json.result.profile.phone,
+        email: json.result.email
+      }
+  
       this.setState({
-        ...this.getState(),
-        user: null
-      }, 'Авторизация не пройдена');
+          ...this.getState(),
+          user: user,
+          waiting: false,
+          error: false
+        }, 'Авторизация пройдена');
     }
   }
 
@@ -105,6 +105,13 @@ class UserState extends StoreModule {
         user: null,
         waiting: false
       }, 'Пользователь вышел');
+  }
+
+  clearError() {
+    this.setState({
+      ...this.getState(),
+      error: false
+    }, 'Сброс ошибки');
   }
 }
 

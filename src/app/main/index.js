@@ -14,17 +14,9 @@ function Main() {
 
   const store = useStore();
 
-  const callbacks = {
-    onCheckUser: useCallback(() => store.actions.user.checkUserLocal(), [store]),
-  }
-
-  useInit(() => {
-    callbacks.onCheckUser();
-  }, [])
-
   useInit(() => {
     store.actions.catalog.initParams();
-    store.actions.catalog.getCategories();
+    store.actions.categories.getCategories();
   }, [], true);
 
   const {t} = useTranslate();

@@ -31,14 +31,8 @@ function Article() {
 
   const callbacks = {
     // Добавление в корзину
-    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
-    //проверка авторизации
-    onCheckUser: useCallback(() => store.actions.user.checkUserLocal(), [store]),
+    addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store])
   }
-
-  useInit(() => {
-    callbacks.onCheckUser();
-  }, []);
 
   return (
     <PageLayout>

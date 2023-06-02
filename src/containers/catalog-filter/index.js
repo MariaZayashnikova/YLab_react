@@ -14,7 +14,7 @@ function CatalogFilter() {
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
     filter: state.catalog.params.filter,
-    categoriesList: state.catalog.categoriesList
+    categoriesList: state.categories.list
   }));
 
   const callbacks = {
@@ -77,7 +77,7 @@ function CatalogFilter() {
       <Select options={options.filter} value={select.filter} onChange={callbacks.onFilter}/>
       <Select options={options.sort} value={select.sort} onChange={callbacks.onSort}/>
       <Input value={select.query} onChange={callbacks.onSearch} placeholder={'Поиск'}
-             delay={1000}/>
+             delay={1000} theme='big'/>
       <button onClick={callbacks.onReset}>{t('filter.reset')}</button>
     </SideLayout>
   )

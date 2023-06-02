@@ -1,6 +1,7 @@
 import {useCallback, useContext, useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
+import useStore from "../hooks/use-store";
 import Main from "./main";
 import Basket from "./basket";
 import Article from "./article";
@@ -14,6 +15,12 @@ import Profile from './profile';
 function App() {
 
   const activeModal = useSelector(state => state.modals.name);
+
+  const store = useStore();
+
+  useEffect(() => {
+    store.actions.profile.checkAuthorizationToken();
+  }, [])
 
   return (
     <>
