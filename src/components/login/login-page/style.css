@@ -1,11 +1,11 @@
 .LoginPage {
-    padding: 20px;
+  padding: 20px;
 }
 
 .LoginPage-item {
-    margin: 20px 0;
+  margin: 20px 0;
 }
 
 .LoginPage-error {
-    color: red;
+  color: red;
 }
