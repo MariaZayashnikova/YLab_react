@@ -53,13 +53,36 @@ class UserState extends StoreModule {
     }
   }
 
-  checkUser() {
+  checkUserLocal() {
     if(localStorage.getItem('user')) {
       let user = JSON.parse(localStorage.getItem('user'));
       this.setState({
         ...this.getState(),
         user: user
       }, 'Проверка авторизации выполнена успешно');
+    }
+  }
+
+  async checkAuthorizationToken() {
+    const token = this.getState().user.token;
+
+    const response = await fetch('/api/v1/users/self', {
+      method: 'GET',
+      headers: {
+        'X-Token': token,
+        'Content-type': 'application/json'
+      },
+    });
+
+    const json = await response.json();
+
+    if(!json.result) {
+      localStorage.clear();
+
+      this.setState({
+        ...this.getState(),
+        user: null
+      }, 'Авторизация не пройдена');
     }
   }
 

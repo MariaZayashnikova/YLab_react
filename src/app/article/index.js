@@ -33,7 +33,7 @@ function Article() {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     //проверка авторизации
-    onCheckUser: useCallback(() => store.actions.user.checkUser(), [store]),
+    onCheckUser: useCallback(() => store.actions.user.checkUserLocal(), [store]),
   }
 
   useInit(() => {

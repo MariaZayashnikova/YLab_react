@@ -22,7 +22,7 @@ function Login() {
 
   const callbacks = {
     onSignIn: useCallback(data => store.actions.user.signIn(data), [store]),
-    onCheckUser: useCallback(() => store.actions.user.checkUser(), [store]),
+    onCheckUser: useCallback(() => store.actions.user.checkUserLocal(), [store]),
   }
 
   useInit(() => {

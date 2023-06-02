@@ -15,7 +15,7 @@ function Main() {
   const store = useStore();
 
   const callbacks = {
-    onCheckUser: useCallback(() => store.actions.user.checkUser(), [store]),
+    onCheckUser: useCallback(() => store.actions.user.checkUserLocal(), [store]),
   }
 
   useInit(() => {
