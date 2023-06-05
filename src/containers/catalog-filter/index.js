@@ -33,7 +33,7 @@ function CatalogFilter() {
   ];
 
   function createFilter() {
-    //@todo попробовать сократить
+
     function addCategoryToFilter(data, prefix) {
       filter.push({value: data._id, title: prefix + data.title});
     }
@@ -45,19 +45,30 @@ function CatalogFilter() {
       categories.push(newObj);
     });
 
+    categories.forEach(item => {
+      item.children = categories.filter(elem => elem.parent?._id === item._id);
+    });
+    
     let list = categories.filter(item => item.parent === null);
-    list.forEach(elem => {
-      addCategoryToFilter(elem, '');
-      elem.children = categories.filter(item => item.parent?._id === elem._id);
-      elem.children.forEach(child => {
-        addCategoryToFilter(child, '- ');
-        child.children = categories.filter(item => item.parent?._id === child._id);
-        child.children.forEach(element => {
-          addCategoryToFilter(element, '- - ');
-        })
-      })
-    })
+
+    let emptyPrefix = '';
+    let firstLevelPrefix = '- ';
+    let prefixArr = [];
+
+    function handleCategory(category, prefix) {
+      addCategoryToFilter(category, prefix);
+      if (category.children.length > 0) {
+        prefixArr.push(firstLevelPrefix)
+        prefix = prefixArr.join("");
+        category.children.forEach(i => handleCategory(i, prefix))
+        prefixArr.pop();
+        prefix = prefixArr.join("");
+      }
+    }
+
+    list.forEach(item => handleCategory(item, emptyPrefix));
   }
+
   createFilter();
 
   const options = {

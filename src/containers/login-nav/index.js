@@ -16,7 +16,7 @@ function LoginNav() {
   }
 
   return (
-    <SideLayout side="end" padding='small'>
+    <SideLayout side="end" padding='small' border={true}>
       <LoginDetails user={select.user}
                     linkPath={{profile: '/profile', login: '/login'}}
                     action={select.user ? 'Выход' : 'Вход'}
