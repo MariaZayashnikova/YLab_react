@@ -13,6 +13,11 @@ const initialState = {
   
       case "comments/load-success":
         return { ...state, data: action.payload.data, count:action.payload.data.items.length,  waiting: false};
+
+      case "comments/addNewComment/load-success":
+        let newData = {...state.data};
+        newData.items.push(action.payload.data);
+        return { ...state, data: newData, count: state.count + 1,  waiting: false};
   
       case "comments/load-error":
         return { ...state, data: {}, waiting: false};

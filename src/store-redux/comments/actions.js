@@ -31,7 +31,9 @@ export default {
             method: 'POST',
             body: JSON.stringify(data)
           });
-  
+
+          dispatch({type: 'comments/addNewComment/load-success', payload: {data: res.data.result}});
+          
         } catch (e) {
           //Ошибка загрузки
           dispatch({type: 'comments/load-error'});

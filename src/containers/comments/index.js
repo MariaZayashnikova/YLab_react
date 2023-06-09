@@ -21,8 +21,7 @@ function Comments({articleId}) {
   const dispatch = useDispatch();
 
   function addNewComment(data) {
-    dispatch(commentsActions.addNewComment(data))
-      .then(() => dispatch(commentsActions.load(articleId)));
+    dispatch(commentsActions.addNewComment(data));
   }
 
   let listComments = [];
