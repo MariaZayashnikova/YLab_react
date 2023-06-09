@@ -1,0 +1,42 @@
+.CommentsAnswer {
+  font-size: 16px;
+  line-height: 18px;
+  margin: 30px 0;
+}
+
+.CommentsAnswer-new-comment {
+  display: flex;
+  flex-direction: column;
+}
+
+.CommentsAnswer-new-comment > * {
+  margin-bottom: 10px;
+}
+
+.CommentsAnswer-new-comment-title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14px;
+}
+
+.CommentsAnswer-new-comment-input {
+  height: 76px;
+  font-size: 14px;
+  line-height: 16px;
+  border: 1px solid #666666;
+  box-shadow: inset 0px 1px 4px rgba(102, 102, 102, 0.1);
+  padding: 5px;
+}
+
+.CommentsAnswer-new-comment-add-button {
+  margin-right: 10px;
+}
+
+.CommentsAnswer-cancel {
+  color: #666666;
+  cursor: pointer;
+}
+
+.CommentsAnswer-cancel:hover {
+  text-decoration: underline;
+}

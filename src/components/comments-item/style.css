@@ -1,0 +1,38 @@
+.CommentsItem {
+  margin-bottom: 30px;
+}
+
+.CommentsItem-info {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14px;
+}
+
+.CommentsItem > * {
+  margin-bottom: 10px;
+}
+
+.CommentsItem-author {
+  font-weight: 700;
+}
+
+.CommentsItem-date {
+  color: #666666;
+  margin: 10px;
+}
+
+.CommentsItem-text {
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.CommentsItem-answer {
+  font-size: 12px;
+  line-height: 14px;
+  color: #0087E9;
+  cursor: pointer;
+}
+
+.CommentsItem-answer:hover {
+  text-decoration: underline;
+}

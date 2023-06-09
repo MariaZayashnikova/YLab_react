@@ -14,15 +14,19 @@ import TopHead from "../../containers/top-head";
 import {useDispatch, useSelector as useSelectorRedux} from 'react-redux';
 import shallowequal from "shallowequal";
 import articleActions from '../../store-redux/article/actions';
+import commentsActions from '../../store-redux/comments/actions';
+import Comments from '../../containers/comments';
 
 function Article() {
   const store = useStore();
   const dispatch = useDispatch();
   // Параметры из пути /articles/:id
   const params = useParams();
-  useInit(() => {
-    //store.actions.article.load(params.id);
-    dispatch(articleActions.load(params.id));
+  useInit(async () => {
+    await Promise.all([
+    dispatch(articleActions.load(params.id)),
+    dispatch(commentsActions.load(params.id))
+    ]);
   }, [params.id]);
   const select = useSelectorRedux(state => ({
     article: state.article.data,
@@ -44,6 +48,7 @@ function Article() {
       <Spinner active={select.waiting}>
         <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
       </Spinner>
+      <Comments articleId={select.article._id}/>
     </PageLayout>
   );
 }
