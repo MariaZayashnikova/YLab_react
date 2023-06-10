@@ -11,7 +11,7 @@ export default {
   
         try {
           const res = await services.api.request({
-            url: `/api/v1/comments?search%5Bparent%5D=${id}&limit=*&skip=0&fields=%2A`
+            url: `/api/v1/comments?search[parent]=${id}&limit=*&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type,_tree)),count`
           });
                 // Комментарии загружены успешно
           dispatch({type: 'comments/load-success', payload: {data: res.data.result}});
@@ -27,11 +27,11 @@ export default {
       return async (dispatch, getState, services) => {
         try {
           const res = await services.api.request({
-            url: `/api/v1/comments?lang=ru&fields=%2A`,
+            url: `/api/v1/comments?lang=ru&fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type,_tree)`,
             method: 'POST',
             body: JSON.stringify(data)
           });
-
+          
           dispatch({type: 'comments/addNewComment/load-success', payload: {data: res.data.result}});
           
         } catch (e) {

@@ -15,7 +15,9 @@ function CommentsItem(props) {
   return (
     <div className={cn()} style={style}>
       <div className={cn('info')}>
-        <span className={cn('author')}>{props.comment.author._type}</span>
+        <span className={props.comment.author.profile.name === props.userName ? cn('author-authorized') : cn('author')}>
+          {props.comment.author.profile.name}
+        </span>
         <span className={cn('date')}>{createDateForComments(props.comment.dateCreate)}</span>
       </div>
       <div className={cn('text')}>{props.comment.text}</div>
@@ -33,6 +35,7 @@ CommentsItem.propTypes = {
   addCallback: PropTypes.func,
   isAuthorization: PropTypes.bool,
   parentIdAnswer: PropTypes.string,
+  userName: PropTypes.string,
   comment: PropTypes.shape({
     _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     dateCreate: PropTypes.string,
@@ -46,7 +49,8 @@ CommentsItem.defaultProps = {
   setParentIdAnswer: () => {},
   addCallback: () => {},
   isAuthorization: false,
-  parentIdAnswer: null
+  parentIdAnswer: null,
+  userName: ''
 }
 
 export default memo(CommentsItem);

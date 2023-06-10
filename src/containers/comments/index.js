@@ -6,6 +6,7 @@ import Spinner from "../../components/spinner";
 import CommentsList from "../../components/comments-list";
 import commentsActions from '../../store-redux/comments/actions';
 import treeToList from "../../utils/tree-to-list";
+import listToTree from "../../utils/list-to-tree";
 
 function Comments({articleId}) {
   const selectRedux = useSelectorRedux(state => ({
@@ -15,7 +16,8 @@ function Comments({articleId}) {
   }), shallowequal); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
   const select = useSelector(state => ({
-    exists: state.session.exists
+    exists: state.session.exists,
+    user: state.session.user
   }));
 
   const dispatch = useDispatch();
@@ -24,30 +26,30 @@ function Comments({articleId}) {
     dispatch(commentsActions.addNewComment(data));
   }
 
+  let dataForList = {
+    count: selectRedux.commentsCount,
+    articleId: articleId,
+    isAuthorization: select.exists,
+    userName: select.user?.profile?.name
+  }
+
   let listComments = [];
 
-  function createTree() {
+  if(selectRedux.commentsCount > 0) {
     let newList = [];
-    // копируем массив объектов, чтобы не менялся исходный
-    selectRedux.comments.items.forEach(item => {
+
+    selectRedux.comments.forEach(item => {
       let newObj = {};
       Object.assign(newObj, item);
       newList.push(newObj);
     });
-
-    newList.forEach(item => {
-      item.children = newList.filter(elem => elem.parent?._id === item._id);
-    });
-
-    listComments = treeToList(newList.filter(item => item.parent._type === 'article'));
+      
+    listComments = treeToList(listToTree(newList));
   }
 
-  if(selectRedux.commentsCount > 0) createTree();
-  
   return (
     <Spinner active={selectRedux.waiting}>
-      <CommentsList count={selectRedux.commentsCount} comments={listComments} addCallback={addNewComment} articleId={articleId}
-                    isAuthorization={select.exists}/>
+      <CommentsList data={dataForList} comments={listComments} addCallback={addNewComment}/>
     </Spinner>
   )
 }

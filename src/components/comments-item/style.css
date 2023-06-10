@@ -16,6 +16,11 @@
   font-weight: 700;
 }
 
+.CommentsItem-author-authorized {
+  font-weight: 700;
+  color: #666666;
+}
+
 .CommentsItem-date {
   color: #666666;
   margin: 10px;
@@ -24,6 +29,7 @@
 .CommentsItem-text {
   font-size: 14px;
   line-height: 16px;
+  overflow-wrap: break-word;
 }
 
 .CommentsItem-answer {

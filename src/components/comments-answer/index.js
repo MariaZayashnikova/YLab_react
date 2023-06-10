@@ -10,12 +10,15 @@ function CommentsAnswer(props) {
   function onSubmit(e) {
     e.preventDefault();
     let formData = new FormData(e.target);
-    let data = {
-      'text': formData.get('text')
+
+    if(formData.get('text').trim().length > 0) {
+      let data = {
+        'text': formData.get('text')
+      }
+      props.addCallback(data);
+      e.target.reset();
+      props.setParentIdAnswer(null);
     }
-    props.addCallback(data);
-    e.target.reset();
-    props.setParentIdAnswer(null);
   }
 
   return (

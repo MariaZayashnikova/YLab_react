@@ -4,7 +4,7 @@
  * @param [key] {String} Свойство с первичным ключом
  * @returns {Array} Корневые узлы
  */
-export default function listToTree(list, key = '_id') {
+export default function listToTree(list, key = '_id', type = 'article') {
   let trees = {};
   let roots = {};
   for (const item of list) {
@@ -25,8 +25,8 @@ export default function listToTree(list, key = '_id') {
       if (!trees[item.parent._id]) trees[item.parent[key]] = { children: [] };
       // Добавления в подчиненные родителя
       trees[item.parent[key]].children.push(trees[item[key]]);
-      // Так как элемент добавлен к родителю, то он уже не является корневым
-      if (roots[item[key]]) delete roots[item[key]];
+
+      if (roots[item[key]] && roots[item[key]].parent._type !== type) delete roots[item[key]];
     }
   }
   return Object.values(roots);

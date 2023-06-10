@@ -1,6 +1,6 @@
 // Начальное состояние
 const initialState = {
-    data: {},
+    data: [],
     count: 0,
     waiting: false // признак ожидания загрузки
   }
@@ -9,18 +9,18 @@ const initialState = {
   function reducer(state = initialState, action) {
     switch (action.type) {
       case "comments/load-start":
-        return { ...state, data: {}, count: 0, waiting: true};
+        return { ...state, data: [], count: 0, waiting: true};
   
       case "comments/load-success":
-        return { ...state, data: action.payload.data, count:action.payload.data.items.length,  waiting: false};
+        return { ...state, data: action.payload.data.items, count: action.payload.data.count,  waiting: false};
 
       case "comments/addNewComment/load-success":
-        let newData = {...state.data};
-        newData.items.push(action.payload.data);
+        let newData = [...state.data];
+        newData.push(action.payload.data);
         return { ...state, data: newData, count: state.count + 1,  waiting: false};
   
       case "comments/load-error":
-        return { ...state, data: {}, waiting: false};
+        return { ...state, data: [], waiting: false};
       default:
         // Нет изменений
         return state;
