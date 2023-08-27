@@ -1,4 +1,4 @@
-import {useCallback, useContext} from "react";
+import {useCallback, useContext, useMemo, useLayoutEffect, useState} from "react";
 // import useStore from "../store/use-store";
 // import useSelector from "../store/use-selector";
 // import translate from "../i18n/translate";
@@ -17,6 +17,9 @@ export default function useTranslate() {
   // const t = useCallback((text, number) => translate(lang, text, number), [lang]);
   //
   // return {lang, setLang, t};
+
+
+
 
   return useContext(I18nContext);
 }

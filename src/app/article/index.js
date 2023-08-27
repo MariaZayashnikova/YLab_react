@@ -1,4 +1,4 @@
-import {memo, useCallback, useMemo} from 'react';
+import {memo, useCallback, useMemo, useEffect, useState} from 'react';
 import {useParams} from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -16,6 +16,7 @@ import shallowequal from "shallowequal";
 import articleActions from '../../store-redux/article/actions';
 import commentsActions from '../../store-redux/comments/actions';
 import Comments from '../../containers/comments';
+import myUseTranslate from '../../hooks/myUse';
 
 function Article() {
   const store = useStore();
@@ -38,6 +39,15 @@ function Article() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
   }
 
+  const {i18n, lang} = myUseTranslate();
+  const [state, setState] = useState(i18n)
+
+const translate = myUseTranslate((state) => {
+  setState(state)
+});
+console.log(state)
+
+
   return (
     <PageLayout>
       <TopHead/>
@@ -46,7 +56,7 @@ function Article() {
       </Head>
       <Navigation/>
       <Spinner active={select.waiting}>
-        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={t}/>
+        <ArticleCard article={select.article} onAdd={callbacks.addToBasket} t={i18n.translate}/>
       </Spinner>
       <Comments articleId={select.article._id}/>
     </PageLayout>
